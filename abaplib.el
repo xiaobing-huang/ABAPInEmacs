@@ -203,7 +203,7 @@
          (sub-directory)
          (final-directory))
 
-    (case major-type
+    (pcase major-type
       ('CLAS (progn
                (setq parent-directory --dir-source-code)
                (setq sub-directory    "Classes" )))
@@ -556,7 +556,7 @@
          (parsed-errors))
     (mapcar (lambda (message)
               (let* ((uri (xml-get-attribute message 'uri))
-                     (level (case (intern (xml-get-attribute message 'type))
+                     (level (pcase (intern (xml-get-attribute message 'type))
                              ('W "warning")
                              ('E "error")
                              (t "success")))
@@ -682,7 +682,7 @@
 
 (defun abaplib--activate-parse-result (result)
   (let ((result-type (car result)))
-    (case result-type
+    (pcase result-type
       ('messages (abaplib--activate-show-message (xml-get-children result
                                                                    'msg)))
       ('inactiveObjects (abaplib--activate-postaudit (xml-get-children result
